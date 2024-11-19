@@ -1,0 +1,35 @@
+user model:
+- full name                     - string
+- email                         - string
+- password                      - string
+- cart                          - array of ids of product
+- isadmin                       - bool
+- orders                        - previous orders by the user
+- contact                       - number
+- picture(dp on profile)        - string
+
+product model:
+image            - string
+product-name     - string
+product-price    - number
+product-discount - number
+bg-color         - string
+pannel-color     - string
+text-color       - string
+
+
+owner model:
+- fullName: {
+-   type: String,
+-   minLength: 3,
+-   trim: true,
+- },
+- email: String,
+- password: String,
+- products: Array,
+- picture: String,
+- gstin: String, - gst no.
+
+** IMP **
+- To add validator to full_name, email and password as well
+- and adding somethings as well
