@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Document</title>
+</head>
+<body>
+    <%- include('../partials/header') %>
+    <div class="w-full h-auto flex flex-col px-20 py-10 gap-10">
+        <!-- Product with Individual Price Breakdown -->
+        <% user.cart.forEach(function(product) { %>
+        <div class="flex gap-10">
+            <!-- Product Card -->
+            <div class="w-[30%] rounded-md overflow-hidden">
+                <div class="w-full flex justify-center align-center h-80 bg-[<%= product.bgColor %>]">
+                    <img class="h-[18rem]" src="data:image/jpeg;base64,<%= product.image.toString('base64') %>" alt="">
+                </div>
+                <div class="w-full flex justify-between px-5 py-4 bg-[<%= product.pannelColor %>]">
+                    <h3 class="text-2xl"><%= product.name %></h3>
+                    <div class="flex items-center gap-2">
+                        <i class="w-7 h-7 bg-white flex rounded-full items-center justify-center ri-add-line"></i>
+                        <div class="px-2 py-1 rounded-md bg-white text-black">01</div>
+                        <i class="w-7 h-7 bg-white flex rounded-full items-center justify-center ri-subtract-line"></i>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between px-5 py-3 bg-[<%= product.textColor %>]">
+                    <h4 class="text-lg">Net Total</h4>
+                    <h2 class="text-lg">₹ <%= product.price %></h2>
+                </div>
+            </div>
+
+            <!-- Individual Price Breakdown -->
+            <div class="w-[70%]">
+                <h3 class="text-xl">Price Breakdown for <%= product.name %></h3>
+                <div class="px-10 mt-5">
+                    <div class="flex mt-2">
+                        <h4 class="w-1/3">Total MRP</h4>
+                        <h4>₹ <%= product.price %></h4>
+                    </div>
+                    <div class="flex mt-2">
+                        <h4 class="w-1/3">Discount on MRP</h4>
+                        <h4>₹ <%= Number(product.discount) %></h4>
+                    </div>
+                    <div class="flex mt-2">
+                        <h4 class="w-1/3">Platform Fee</h4>
+                        <h4>₹ 20</h4>
+                    </div>
+                    <div class="flex mt-2">
+                        <h4 class="w-1/3">Shipping Fee</h4>
+                        <h4>FREE</h4>
+                    </div>
+                </div>
+                <div class="w-full h-[1px] bg-black mt-5"></div>
+                <div class="flex mt-5">
+                    <h3 class="w-1/3 text-lg">Total for <%= product.name %></h3>
+                    <h3 class="font-semibold text-lg text-green-600">₹ <%= product.price + 20 %></h3>
+                </div>
+            </div>
+        </div>
+        <% }); %>
+
+        <!-- Final Total Summary -->
+        <div class="w-full mt-10">
+            <h3 class="text-2xl font-bold">Final Total Summary</h3>
+            <div class="px-10 mt-5">
+                <div class="flex mt-2">
+                    <h4 class="w-1/3">Total MRP for All Products</h4>
+                    <h4>₹ <%= user.cart.reduce((total, product) => total + product.price, 0) %></h4>
+                </div>
+                <div class="flex mt-2">
+                    <h4 class="w-1/3">Total Platform Fee</h4>
+                    <h4>₹ <%= user.cart.length * 20 %></h4>
+                </div>
+                <div class="flex mt-2">
+                    <h4 class="w-1/3">Total Shipping Fee</h4>
+                    <h4>FREE</h4>
+                </div>
+            </div>
+            <div class="w-full h-[1px] bg-black mt-10"></div>
+            <div class="flex mt-5">
+                <h3 class="w-1/3 text-xl">Grand Total Amount</h3>
+                <h3 class="font-semibold text-xl text-green-600">
+                    ₹ <%= user.cart.reduce((total, product) => total + product.price, 0) + (user.cart.length * 20) %>
+                </h3>
+            </div>
+        </div>
+    </div>
+    <%- include('../partials/footer') %>
+</body>
+</html>

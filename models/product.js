@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 
 const productSchema = {
-  image: String,
-  productName: String,
-  productPrice: Number,
-  productDiscount: {
+  image: Buffer,
+  name: String,
+  price: Number,
+  discount: {
     type: Number,
     default: 0,
   },
